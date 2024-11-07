@@ -38,8 +38,9 @@ export default class Dedupe {
 		return { id, serial };
 	}
 
-	isRoot(node) {
-		return this.trees.get(node.serial)?.root === node;
+	isRoot(id) {
+		const node = this.map.get(id);
+		return node && this.trees.get(node.serial)?.root === node;
 	}
 
 	set(id, serial) {
@@ -87,9 +88,8 @@ export default class Dedupe {
 		if (!this.map.has(id)) return false;
 
 		const node = this.map.get(id);
-		this.map.delete(id);
 
-		if (this.isRoot(node)) {
+		if (this.isRoot(node.id)) {
 			Array.from(this.trees.get(node.serial).children.values()).forEach(node => {
 				this.map.delete(node.id);
 				this.changes.unshift({ change: 'add', ...node });
@@ -98,6 +98,8 @@ export default class Dedupe {
 		} else {
 			this.trees.get(node.serial).children.delete(node.id);
 		}
+
+		this.map.delete(id);
 	}
 
 	recalculate() {
