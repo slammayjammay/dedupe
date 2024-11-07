@@ -1,4 +1,3 @@
-import util from 'util';
 import assert from 'assert';
 import Dedupe from '../Dedupe.js';
 

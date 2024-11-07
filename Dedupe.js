@@ -1,5 +1,3 @@
-import util from 'util';
-
 // Simple example: you need to render a video (expensive operation), the same
 // video, in a list showcasing different video dimensions, small medium large
 // etc. If your list involves many videos at the same dimensions, it's better
